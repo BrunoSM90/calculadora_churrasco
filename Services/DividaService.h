@@ -17,17 +17,15 @@ class TProduto;
 class TDividaService {
 
 public:
-    TDividaService() = default;
+    TDividaService(
+        list<TParticipante*>* _participantes
+    );
 
     ~TDividaService() = default;
 
-    void DiscriminaConsumo(
-        list<TParticipante*>* participantes
-    );
+    void DiscriminaConsumo();
 
-    void CalculaDivida(
-        list<TParticipante*>* participantes
-    );
+    void CalculaDivida();
 
     void InsereTodosEmNaoConsumidos(
         list<TProduto*>* produtos,
@@ -42,7 +40,6 @@ public:
 private:
 
     void ProcessaDividas(
-        list<TParticipante*>* participantes,
         map<TProduto*, list<TParticipante*>>* dividas
     );
 
@@ -54,8 +51,7 @@ private:
         TParticipante* participante
     ) const;
 
-    list<TParticipante*>* 
-
+    list<TParticipante*>* participantes;
 };
 
 #endif

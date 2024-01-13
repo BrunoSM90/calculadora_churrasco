@@ -60,9 +60,16 @@ namespace AuxDividas {
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::DiscriminaConsumo(
-    list<TParticipante*>* participantes
-)
+TDividaService::TDividaService(
+    list<TParticipante*>* _participantes
+) :
+    participantes(_participantes)
+{
+}
+
+/*--------------------------------------------------------------------------------*/
+
+void TDividaService::DiscriminaConsumo()
 {
     auto produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
 
@@ -134,9 +141,7 @@ void TDividaService::ManipulaNaoConsumidos(
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::CalculaDivida(
-    list<TParticipante*>* participantes
-)
+void TDividaService::CalculaDivida()
 {
     shared_ptr<list<TProduto*>> produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
     auto dividas = new map<TProduto*, list<TParticipante*>>();
@@ -151,13 +156,12 @@ void TDividaService::CalculaDivida(
         dividas->insert(make_pair(produto, *pagadores));
     }
 
-    ProcessaDividas(participantes, dividas);
+    ProcessaDividas(dividas);
 }
 
 /*--------------------------------------------------------------------------------*/
 
 void TDividaService::ProcessaDividas(
-    list<TParticipante*>* participantes,
     map<TProduto*, list<TParticipante*>>* dividas
 )
 {
