@@ -1,1 +1,1 @@
-@echo "Teste from github"
+@echo 'Teste from github'
