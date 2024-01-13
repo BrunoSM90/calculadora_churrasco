@@ -20,6 +20,15 @@ TParticipanteService::TParticipanteService(
 
 /*--------------------------------------------------------------------------------*/
 
+
+TParticipanteService::~TParticipanteService()
+{
+    delete prodService;
+    prodService = 0;
+}
+
+/*--------------------------------------------------------------------------------*/
+
 list<TParticipante*>* TParticipanteService::CadastraParticipantes() {
     size_t numParticipantes;
     cout << "Insira o número de participantes: \n";

@@ -17,6 +17,8 @@ class TProdutoService {
 public:
     TProdutoService() = default;
 
+    ~TProdutoService() = default;
+
     void CriaProdutosComprados(
         TParticipante* participante,
         const size_t nProdutosComprados

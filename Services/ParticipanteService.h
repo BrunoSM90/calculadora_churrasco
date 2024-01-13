@@ -5,7 +5,6 @@
 #include <list>
 
 #include "ProdutoServices.h"
-//#include "Participante.h"
 
 /*--------------------------------------------------------------------------------*/
 
@@ -21,7 +20,7 @@ public:
         TProdutoService* _prodService
     );
 
-    ~TParticipanteService() = default;
+    ~TParticipanteService();
 
     list<TParticipante*>* CadastraParticipantes();
 
