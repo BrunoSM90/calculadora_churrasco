@@ -7,6 +7,10 @@
 *.o
 *.obj
 
+#Batch files
+*.bat
+*.batch
+
 # Precompiled Headers
 *.gch
 *.pch
@@ -30,3 +34,7 @@
 *.exe
 *.out
 *.app
+
+#Specific files/folders
+Testes.txt
+build/
