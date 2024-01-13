@@ -16,22 +16,6 @@ using namespace std;
 
 /*--------------------------------------------------------------------------------*/
 
-/* TODO
-- TELA NO QT (requer refactor pesado)
-- TRATAMENTO DE VALORES INVÁLIDOS (fazer classe de assert?)
-- ANALISAR PASSAGENS DE PONTEIROS
-- VER SE ALGUM DESIGN PATTERN FACILITA
-- FAZER CRUZAMENTO ENTRE PARTICIPANTE X DEVE PARA Y E PARTICIPANTE Y DEVE PARA X
-- BD no SQLITE para armazenar participantes + GERAR QR CODE (pesquisar).
-- VERIFICAR DESTRUTORES DAS ENTITIES (devo apagar algo?)
-- VERIFICAÇÃO DE LEAKS
-- RELATÓRIO NO CONSOLE + RELATÓRIO ESCRITO EM FILE
-- VER SE DEVO TROCAR AS LISTAS DE PRODUTO POR SET
-- Ver como fazer minha própria implementação de list<T*> e ter uns métodos tipo hasMember
-*/
-
-/*--------------------------------------------------------------------------------*/
-
 int main(int argc, char** argv) {
 
     setlocale(LC_ALL, "portuguese");
