@@ -25,13 +25,8 @@ public:
         list<TParticipante*>* participantes
     );
 
-    map<TProduto*, list<TParticipante*>>& CalculaDivida(
+    void CalculaDivida(
         list<TParticipante*>* participantes
-    );
-
-    void ProcessaDividas(
-        list<TParticipante*>* participantes,
-        map<TProduto*, list<TParticipante*>>* dividas
     );
 
     void InsereTodosEmNaoConsumidos(
@@ -44,14 +39,22 @@ public:
         TParticipante* participante
     );
 
+private:
+
+    void ProcessaDividas(
+        list<TParticipante*>* participantes,
+        map<TProduto*, list<TParticipante*>>* dividas
+    );
+
     void ImprimeDividas(
         list<TParticipante*>* participantes
     );
 
-private:
     void ExibeNaoConsumidos(
         TParticipante* participante
     ) const;
+
+    list<TParticipante*>* 
 
 };
 

@@ -134,6 +134,28 @@ void TDividaService::ManipulaNaoConsumidos(
 
 /*--------------------------------------------------------------------------------*/
 
+void TDividaService::CalculaDivida(
+    list<TParticipante*>* participantes
+)
+{
+    shared_ptr<list<TProduto*>> produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
+    auto dividas = new map<TProduto*, list<TParticipante*>>();
+
+    for (TProduto* produto : *produtos) {
+        auto pagadores = new list<TParticipante*>();
+        for (TParticipante* participante : *participantes) {
+            if (participante->Consome(produto)) {
+                pagadores->push_back(participante);
+            }
+        }
+        dividas->insert(make_pair(produto, *pagadores));
+    }
+
+    ProcessaDividas(participantes, dividas);
+}
+
+/*--------------------------------------------------------------------------------*/
+
 void TDividaService::ProcessaDividas(
     list<TParticipante*>* participantes,
     map<TProduto*, list<TParticipante*>>* dividas
@@ -155,28 +177,6 @@ void TDividaService::ProcessaDividas(
             participante->InsereDivida(produto->GetComprador(), valorDividido);
         }
     }
-}
-
-/*--------------------------------------------------------------------------------*/
-
-map<TProduto*, list<TParticipante*>>& TDividaService::CalculaDivida(
-    list<TParticipante*>* participantes
-)
-{
-    shared_ptr<list<TProduto*>> produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
-    auto divida = new map<TProduto*, list<TParticipante*>>();
-
-    for (TProduto* produto : *produtos) {
-        auto pagadores = new list<TParticipante*>();
-        for (TParticipante* participante : *participantes) {
-            if (participante->Consome(produto)) {
-                pagadores->push_back(participante);
-            }
-        }
-        divida->insert(make_pair(produto, *pagadores));
-    }
-
-    return *divida;
 }
 
 /*--------------------------------------------------------------------------------*/

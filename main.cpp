@@ -56,15 +56,9 @@ void CalculaDivida (
 {
     unique_ptr<TDividaService> dividaService = make_unique<TDividaService>();
     dividaService->DiscriminaConsumo(participantes);
-
-    //não precisa receber o calcula divida, trabalhar com a lista apenas dentro do serviço.
-    //talvez guardar a lista de dividas e de participantes como membros
-    map<TProduto*, list<TParticipante*>>* dividas = &dividaService->CalculaDivida(participantes);
-    dividaService->ProcessaDividas(participantes, dividas);
+    dividaService->CalculaDivida(participantes);
 
     system("cls");
-
-    dividaService->ImprimeDividas(participantes);
 }
 
 /*--------------------------------------------------------------------------------*/
