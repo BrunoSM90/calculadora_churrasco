@@ -4,12 +4,18 @@
 TO-DO list:
 - TELA NO QT (requer refactor pesado)
 - TRATAMENTO DE VALORES INVÁLIDOS (asserts?)
-- VERIFICAR PONTEIROS E DELETES
 - DP?
 - FAZER CRUZAMENTO ENTRE PARTICIPANTE X DEVE PARA Y E PARTICIPANTE Y DEVE PARA X
 - BD no SQLITE para armazenar participantes + GERAR QR CODE (pesquisar).
-- VERIFICAR DESTRUTORES DAS ENTITIES (devo apagar algo?)
 - VERIFICAÇÃO DE LEAKS
 - RELATÓRIO NO CONSOLE + RELATÓRIO ESCRITO EM FILE
 - TROCAR AS LISTAS DE PRODUTO POR SETS
 - Custom list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
+- Verificar questão do locale para trocar cout por printf
+- Opção adicionar todos de volta à lista de consumidos quando todos os produtos estiverem na lista de não consumidos (similar ao que já existe na de consumidos)
+- Verificar ponteiro (ln 81 do dividasservice.cpp):
+  auto produtos = make_unique<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
+
+Feitos:
+- VERIFICAR DESTRUTORES DAS ENTITIES (devo apagar algo?)
+- VERIFICAR PONTEIROS E DELETES

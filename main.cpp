@@ -57,8 +57,7 @@ void CalculaDivida (
     unique_ptr<TDividaService> dividaService = make_unique<TDividaService>(participantes);
     dividaService->DiscriminaConsumo();
     dividaService->CalculaDivida();
-
-    system("cls");
+    dividaService->ImprimeDividas();
 }
 
 /*--------------------------------------------------------------------------------*/

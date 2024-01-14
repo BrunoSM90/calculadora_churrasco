@@ -21,21 +21,13 @@ public:
         list<TParticipante*>* _participantes
     );
 
-    ~TDividaService() = default;
+    ~TDividaService();
 
     void DiscriminaConsumo();
 
     void CalculaDivida();
 
-    void InsereTodosEmNaoConsumidos(
-        list<TProduto*>* produtos,
-        TParticipante* participante
-    );
-
-    void ManipulaNaoConsumidos(
-        TProduto* produto,
-        TParticipante* participante
-    );
+    void ImprimeDividas();
 
 private:
 
@@ -43,11 +35,37 @@ private:
         map<TProduto*, list<TParticipante*>>* dividas
     );
 
-    void ImprimeDividas(
-        list<TParticipante*>* participantes
+    void TDividaService::ExibeListasProdutos(
+        list<TProduto*>* produtos,
+        TParticipante* participante
     );
 
     void ExibeNaoConsumidos(
+        TParticipante* participante
+    ) const;
+
+    void ProcessaConsumoProdutos(
+        list<TProduto*>* produtos,
+        TParticipante* participante,
+        size_t& codProduto
+    );
+
+    size_t TDividaService::LeCodigoProduto(
+        string nomeParticipante
+    );
+
+    void ManipulaNaoConsumidos(
+        TProduto* produto,
+        TParticipante* participante
+    );
+
+    void InsereTodosEmNaoConsumidos(
+        list<TProduto*>* produtos,
+        TParticipante* participante
+    );
+
+    void RemoveNaoConsumido(
+        TProduto* produto,
         TParticipante* participante
     ) const;
 

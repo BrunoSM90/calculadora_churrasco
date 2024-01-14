@@ -24,7 +24,6 @@ TParticipanteService::TParticipanteService(
 TParticipanteService::~TParticipanteService()
 {
     delete prodService;
-    prodService = 0;
 }
 
 /*--------------------------------------------------------------------------------*/

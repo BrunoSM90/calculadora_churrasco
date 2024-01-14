@@ -33,8 +33,8 @@ namespace AuxDividas {
         return nullptr;
     }
 
-    void ImprimeProdutos(const list<TProduto*>& produtos, const TParticipante& participante) {
-        cout << "Produtos do churrasco: \n";
+    void ImprimeProdutosConsumidos(const list<TProduto*>& produtos, const TParticipante& participante) {
+        cout << "Produtos consumidos: \n";
         size_t count = 0;
         for (TProduto* produto : produtos) {
             if (participante.Consome(produto)) {
@@ -69,37 +69,74 @@ TDividaService::TDividaService(
 
 /*--------------------------------------------------------------------------------*/
 
+TDividaService::~TDividaService()
+{
+    delete participantes;
+}
+
+/*--------------------------------------------------------------------------------*/
+
 void TDividaService::DiscriminaConsumo()
 {
-    auto produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
+    auto produtos = make_unique<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
 
     for (TParticipante* participante : *participantes) {
         AuxDividas::LimpaTela();
 
-        int codProduto = 1;
+        size_t codProduto = 1;
         while (codProduto != 0) {
-            //muito grande o conteúdo do while, encapsular.
-            AuxDividas::ImprimeProdutos(*produtos.get(), *participante);
-            ExibeNaoConsumidos(participante);
-
-            cout << "\nDigite o código de cada produto NÃO consumido por " <<
-                participante->GetNome() << " (0 para finalizar.)" << "\n\n";
-            cout << "Codigo do produto: " << "\n";
-            cin >> codProduto;
-
-            if (codProduto == produtos->size() + 1) {
-                InsereTodosEmNaoConsumidos(produtos.get(), participante);
-            }
-            else if (codProduto != 0) {
-                TProduto* produto = AuxDividas::BuscaProdutoPorId(produtos.get(), codProduto);
-                ManipulaNaoConsumidos(produto, participante);
-            }
-
+            ExibeListasProdutos(produtos.get(), participante);
+            ProcessaConsumoProdutos(produtos.get(), participante, codProduto);
             AuxDividas::LimpaTela();
         }
     }
 
     cout << "\n" << "-------------------------------------------" << "\n\n";
+}
+
+/*--------------------------------------------------------------------------------*/
+
+void TDividaService::ExibeListasProdutos(
+    list<TProduto*>* produtos,
+    TParticipante* participante
+)
+{
+    AuxDividas::ImprimeProdutosConsumidos(*produtos, *participante);
+    ExibeNaoConsumidos(participante);
+}
+
+/*--------------------------------------------------------------------------------*/
+
+void TDividaService::ProcessaConsumoProdutos(
+    list<TProduto*>* produtos,
+    TParticipante* participante,
+    size_t& codProduto
+)
+{
+    codProduto = LeCodigoProduto(participante->GetNome());
+
+    if (codProduto == produtos->size() + 1) {
+        InsereTodosEmNaoConsumidos(produtos, participante);
+    }
+    else if (codProduto != 0) {
+        TProduto* produto = AuxDividas::BuscaProdutoPorId(produtos, codProduto);
+        ManipulaNaoConsumidos(produto, participante);
+    }
+}
+
+/*--------------------------------------------------------------------------------*/
+
+size_t TDividaService::LeCodigoProduto(
+    string nomeParticipante
+)
+{
+    size_t codProduto;
+    cout << "\nDigite o código de cada produto NÃO consumido por " <<
+        nomeParticipante << " (0 para finalizar.)" << "\n\n";
+    cout << "Codigo do produto: " << "\n";
+    cin >> codProduto;
+
+    return codProduto;
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -125,17 +162,28 @@ void TDividaService::ManipulaNaoConsumidos(
     TParticipante* participante
 )
 {
-    if (!participante->Consome(produto)) {
-        char remove;
-        cout << "\nO produto escolhido já foi registrado para este participante.\n"
-            << "Deseja remover da lista de não consumidos? (s/n)\n";
-        cin >> remove;
-        if (remove == 's') {
-            participante->RemoveNaoConsumido(produto);
-        }
+    if (participante->Consome(produto)) {
+        participante->InsereNaoConsumido(produto);
+        
     }
     else {
-        participante->InsereNaoConsumido(produto);
+        RemoveNaoConsumido(produto, participante);
+    }
+}
+
+/*--------------------------------------------------------------------------------*/
+
+void TDividaService::RemoveNaoConsumido(
+    TProduto* produto,
+    TParticipante* participante
+) const
+{
+    char remove;
+    cout << "\nO produto escolhido já foi registrado para este participante.\n"
+        << "Deseja remover da lista de não consumidos? (s/n)\n";
+    cin >> remove;
+    if (remove == 's') {
+        participante->RemoveNaoConsumido(produto);
     }
 }
 
@@ -185,10 +233,9 @@ void TDividaService::ProcessaDividas(
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::ImprimeDividas(
-    list<TParticipante*>* participantes
-)
+void TDividaService::ImprimeDividas()
 {
+    system("cls");
     for (TParticipante* participante : *participantes) {
         cout << participante->GetNome() << " deve pagar: ";
         const map<TParticipante*, double>* dividas = &participante->GetDividas();
@@ -213,6 +260,7 @@ void TDividaService::ExibeNaoConsumidos(
 {
     cout << "Produtos não consumidos por " << participante->GetNome() << ":\n";
     list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
+
     if (naoConsumidos->size() != 0) {
         naoConsumidos->sort([](TProduto* p1, TProduto* p2) {
             return p1->GetId() < p2->GetId(); });
