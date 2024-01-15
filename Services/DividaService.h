@@ -18,7 +18,8 @@ class TDividaService {
 
 public:
     TDividaService(
-        list<TParticipante*>* _participantes
+        const list<TParticipante*>* _participantes,
+        const list<TProduto*>* _produtos
     );
 
     ~TDividaService();
@@ -27,7 +28,7 @@ public:
 
     void CalculaDivida();
 
-    void ImprimeDividas();
+    void ImprimeDividas() const;
 
 private:
 
@@ -36,7 +37,6 @@ private:
     );
 
     void TDividaService::ExibeListasProdutos(
-        list<TProduto*>* produtos,
         TParticipante* participante
     );
 
@@ -45,7 +45,6 @@ private:
     ) const;
 
     void ProcessaConsumoProdutos(
-        list<TProduto*>* produtos,
         TParticipante* participante,
         size_t& codProduto
     );
@@ -60,7 +59,6 @@ private:
     );
 
     void InsereTodosEmNaoConsumidos(
-        list<TProduto*>* produtos,
         TParticipante* participante
     );
 
@@ -69,7 +67,8 @@ private:
         TParticipante* participante
     ) const;
 
-    list<TParticipante*>* participantes;
+    const list<TParticipante*>* participantes;
+    const list<TProduto*>* produtos;
 };
 
 #endif

@@ -12,17 +12,6 @@ using namespace std;
 /*--------------------------------------------------------------------------------*/
 
 namespace AuxDividas {
-    list<TProduto*>& TodosProdutos(const list<TParticipante*>* participantes) {
-        auto produtos = new list<TProduto*>();
-        for (TParticipante* participante : *participantes) {
-            for (TProduto* produto : participante->GetProdutosComprados()) {
-                produtos->push_back(produto);
-            }
-        }
-
-        return *produtos;
-    }
-
     TProduto* BuscaProdutoPorId(const list<TProduto*>* produtos, const int id) {
         for (TProduto* produto : *produtos) {
             if (produto->GetId() == id) {
@@ -61,9 +50,11 @@ namespace AuxDividas {
 /*--------------------------------------------------------------------------------*/
 
 TDividaService::TDividaService(
-    list<TParticipante*>* _participantes
+    const list<TParticipante*>* _participantes,
+    const list<TProduto*>* _produtos
 ) :
-    participantes(_participantes)
+    participantes(_participantes),
+    produtos(_produtos)
 {
 }
 
@@ -72,21 +63,20 @@ TDividaService::TDividaService(
 TDividaService::~TDividaService()
 {
     delete participantes;
+    delete produtos;
 }
 
 /*--------------------------------------------------------------------------------*/
 
 void TDividaService::DiscriminaConsumo()
 {
-    auto produtos = make_unique<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
-
     for (TParticipante* participante : *participantes) {
         AuxDividas::LimpaTela();
 
         size_t codProduto = 1;
         while (codProduto != 0) {
-            ExibeListasProdutos(produtos.get(), participante);
-            ProcessaConsumoProdutos(produtos.get(), participante, codProduto);
+            ExibeListasProdutos(participante);
+            ProcessaConsumoProdutos(participante, codProduto);
             AuxDividas::LimpaTela();
         }
     }
@@ -97,7 +87,6 @@ void TDividaService::DiscriminaConsumo()
 /*--------------------------------------------------------------------------------*/
 
 void TDividaService::ExibeListasProdutos(
-    list<TProduto*>* produtos,
     TParticipante* participante
 )
 {
@@ -108,7 +97,6 @@ void TDividaService::ExibeListasProdutos(
 /*--------------------------------------------------------------------------------*/
 
 void TDividaService::ProcessaConsumoProdutos(
-    list<TProduto*>* produtos,
     TParticipante* participante,
     size_t& codProduto
 )
@@ -116,7 +104,7 @@ void TDividaService::ProcessaConsumoProdutos(
     codProduto = LeCodigoProduto(participante->GetNome());
 
     if (codProduto == produtos->size() + 1) {
-        InsereTodosEmNaoConsumidos(produtos, participante);
+        InsereTodosEmNaoConsumidos(participante);
     }
     else if (codProduto != 0) {
         TProduto* produto = AuxDividas::BuscaProdutoPorId(produtos, codProduto);
@@ -142,7 +130,6 @@ size_t TDividaService::LeCodigoProduto(
 /*--------------------------------------------------------------------------------*/
 
 void TDividaService::InsereTodosEmNaoConsumidos(
-    list<TProduto*>* produtos,
     TParticipante* participante
 )
 {
@@ -191,7 +178,6 @@ void TDividaService::RemoveNaoConsumido(
 
 void TDividaService::CalculaDivida()
 {
-    shared_ptr<list<TProduto*>> produtos = make_shared<list<TProduto*>>(AuxDividas::TodosProdutos(participantes));
     auto dividas = new map<TProduto*, list<TParticipante*>>();
 
     for (TProduto* produto : *produtos) {
@@ -233,7 +219,7 @@ void TDividaService::ProcessaDividas(
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::ImprimeDividas()
+void TDividaService::ImprimeDividas() const
 {
     system("cls");
     for (TParticipante* participante : *participantes) {

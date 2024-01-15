@@ -16,8 +16,9 @@ using namespace std;
 
 /*--------------------------------------------------------------------------------*/
 
-list<TParticipante*>* CadastraParticipantes();
-void CalculaDivida(list<TParticipante*>* participantes);
+const list<TParticipante*>& CadastraParticipantes();
+void CalculaDivida(const list<TParticipante*>& participantes, const list<TProduto*>& produtos);
+const list<TProduto*>& MontaListaProdutos(const list<TParticipante*>& participantes);
 
 /*--------------------------------------------------------------------------------*/
 
@@ -25,10 +26,11 @@ int main(int argc, char** argv) {
 
     setlocale(LC_ALL, "portuguese");
     
-    list<TParticipante*>* participantes = CadastraParticipantes();
+    const list<TParticipante*>* participantes = &CadastraParticipantes();
 
     if (participantes->size() > 0) {
-        CalculaDivida(participantes);
+        const list<TProduto*>* produtos = &MontaListaProdutos(*participantes);
+        CalculaDivida(*participantes, *produtos);
     }
     
     system("pause");
@@ -38,26 +40,43 @@ int main(int argc, char** argv) {
 
 /*--------------------------------------------------------------------------------*/
 
-list<TParticipante*>* CadastraParticipantes() {
-    auto prodService = new TProdutoService();
+const list<TParticipante*>& CadastraParticipantes()
+{
     unique_ptr<TParticipanteService> participanteService =
-        make_unique<TParticipanteService>(prodService);
+        make_unique<TParticipanteService>(new TProdutoService());
 
     list<TParticipante*>* lista = participanteService->CadastraParticipantes();
 
-    return lista;
+    return *lista;
 }
 
 /*--------------------------------------------------------------------------------*/
 
 void CalculaDivida (
-    list<TParticipante*>* participantes
+    const list<TParticipante*>& participantes,
+    const list<TProduto*>& produtos
 ) 
-{
-    unique_ptr<TDividaService> dividaService = make_unique<TDividaService>(participantes);
+{   
+    unique_ptr<TDividaService> dividaService = make_unique<TDividaService>(&participantes, &produtos);
     dividaService->DiscriminaConsumo();
     dividaService->CalculaDivida();
     dividaService->ImprimeDividas();
+}
+
+/*--------------------------------------------------------------------------------*/
+
+const list<TProduto*>& MontaListaProdutos(
+    const list<TParticipante*>& participantes
+)
+{
+    auto produtos = new list<TProduto*>();
+    for (TParticipante* participante : participantes) {
+        for (TProduto* produto : participante->GetProdutosComprados()) {
+            produtos->push_back(produto);
+        }
+    }
+
+    return *produtos;
 }
 
 /*--------------------------------------------------------------------------------*/
