@@ -24,7 +24,7 @@ public:
 
     ~TDividaService();
 
-    void DiscriminaConsumo() const;
+    void DiscriminaConsumo();
 
     void CalculaDivida() const;
 
@@ -47,16 +47,25 @@ private:
     void ProcessaConsumoProdutos(
         TParticipante* participante,
         size_t& codProduto
-    ) const;
+    );
 
     size_t LeCodigoProduto(
         const string nomeParticipante
     ) const;
 
+    void ProcessaCodigoProduto(
+        TParticipante* participante,
+        size_t& codProduto
+    );
+
     void ManipulaNaoConsumidos(
         TProduto* produto,
         TParticipante* participante
     ) const;
+
+    void RemoveTodosDeNaoConsumidos(
+        TParticipante* participante
+    );
 
     void InsereTodosEmNaoConsumidos(
         TParticipante* participante

@@ -12,7 +12,7 @@ TO-DO list:
 - TROCAR AS LISTAS DE PRODUTO POR SETS
 - Custom list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
 - Verificar questão do locale para trocar cout por printf
-- Opção adicionar todos de volta à lista de consumidos quando todos os produtos estiverem na lista de não consumidos (similar ao que já existe na de consumidos)
+
 
 
 Feitos:
@@ -20,3 +20,4 @@ Feitos:
 - VERIFICAR PONTEIROS E DELETES
 - Verificar ponteiro (ln 81 do dividasservice.cpp):
   auto produtos = make_unique<list<TProduto*>>(AuxDividas::TodosProdutos(participantes)); (removidos smart pointers do divida services)
+- Opção adicionar todos de volta à lista de consumidos quando todos os produtos estiverem na lista de não consumidos (similar ao que já existe na de consumidos)
