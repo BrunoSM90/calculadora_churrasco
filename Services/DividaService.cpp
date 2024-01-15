@@ -22,6 +22,17 @@ namespace AuxDividas {
         return nullptr;
     }
 
+    void ImprimeOpcoesAuxiliares(const size_t nProdutos, const TParticipante& participante) {
+        if (participante.GetNaoConsumidos().size() == nProdutos) {
+            cout << "Não houve consumo.\n";
+        }
+        else {
+            cout << nProdutos + 1 << ". " << "Adicionar todos à lista de não consumidos" << "\n";
+        }
+
+        cout << "\n";
+    }
+
     void ImprimeProdutosConsumidos(const list<TProduto*>& produtos, const TParticipante& participante) {
         cout << "Produtos consumidos por " << participante.GetNome() << ":\n";
 
@@ -30,8 +41,8 @@ namespace AuxDividas {
                 cout << produto->GetId() << ". " << produto->GetNome() << "\n";
             }
         }
-
-        ImprimeOpcoesAuxiliares(produtos.size(), participante);
+        
+        AuxDividas::ImprimeOpcoesAuxiliares(produtos.size(), participante);
     }
 
     void ImprimeProdutosNaoConsumidos(const size_t nProdutos, TParticipante* participante) {
@@ -53,20 +64,9 @@ namespace AuxDividas {
         }
     }
 
-    void ImprimeOpcoesAuxiliares(const size_t nProdutos, const TParticipante& participante) {
-        if (participante.GetNaoConsumidos().size() == nProdutos) {
-            cout << "Não houve consumo.\n";
-        }
-        else {
-            cout << nProdutos + 1 << ". " << "Adicionar todos à lista de não consumidos" << "\n";
-        }
-
-        cout << "\n";
-    }
-
     void LimpaTela() {
         system("cls");
-    }
+    };
 }
 
 /*--------------------------------------------------------------------------------*/
