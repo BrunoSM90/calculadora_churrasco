@@ -12,6 +12,7 @@ TO-DO list:
 - TROCAR AS LISTAS DE PRODUTO POR SETS
 - Custom list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
 - Verificar questão do locale para trocar cout por printf
+- Dividir tela final em "recebe" e "paga".
 
 
 

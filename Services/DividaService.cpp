@@ -31,7 +31,29 @@ namespace AuxDividas {
             }
         }
 
-        const size_t nProdutos = produtos.size();
+        ImprimeOpcoesAuxiliares(produtos.size(), participante);
+    }
+
+    void ImprimeProdutosNaoConsumidos(const size_t nProdutos, TParticipante* participante) {
+        cout << "Produtos não consumidos por " << participante->GetNome() << ":\n";
+        list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
+
+        if (naoConsumidos->size() == 0) {
+            cout << "Lista vazia.\n";
+        }
+        else {
+            naoConsumidos->sort([](TProduto* p1, TProduto* p2) {
+                return p1->GetId() < p2->GetId(); });
+
+            for (TProduto* produto : *naoConsumidos) {
+                cout << produto->GetId() << ". " << produto->GetNome() << "\n";
+            }
+
+            cout << nProdutos + 2 << ". " << "Retornar todos à lista de consumidos" << "\n";
+        }
+    }
+
+    void ImprimeOpcoesAuxiliares(const size_t nProdutos, const TParticipante& participante) {
         if (participante.GetNaoConsumidos().size() == nProdutos) {
             cout << "Não houve consumo.\n";
         }
@@ -91,11 +113,9 @@ void TDividaService::ExibeListasProdutos(
 ) const
 {
     AuxDividas::ImprimeProdutosConsumidos(*produtos, *participante);
-
     cout << "\n" << "-------------------------------------------" << "\n\n";
 
-    ExibeNaoConsumidos(participante);
-
+    AuxDividas::ImprimeProdutosNaoConsumidos(produtos->size(), participante);
     cout << "\n" << "-------------------------------------------" << "\n\n";
 }
 
@@ -264,30 +284,6 @@ void TDividaService::ImprimeDividas() const
         else {
             cout << "R$0.00\n\n";
         }
-    }
-}
-
-/*--------------------------------------------------------------------------------*/
-
-void TDividaService::ExibeNaoConsumidos(
-    TParticipante* participante
-) const
-{
-    cout << "Produtos não consumidos por " << participante->GetNome() << ":\n";
-    list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
-
-    if (naoConsumidos->size() != 0) {
-        naoConsumidos->sort([](TProduto* p1, TProduto* p2) {
-            return p1->GetId() < p2->GetId(); });
-
-        for (TProduto* produto : *naoConsumidos) {
-            cout << produto->GetId() << ". " << produto->GetNome() << "\n";
-        }
-
-        cout << produtos->size() + 2 << ". " << "Retornar todos à lista de consumidos" << "\n";
-    }
-    else {
-        cout << "Lista vazia.\n";
     }
 }
 
