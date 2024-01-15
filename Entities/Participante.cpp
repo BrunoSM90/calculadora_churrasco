@@ -13,7 +13,7 @@ TParticipante::TParticipante(
     id(_id),
     nome(_nome),
     produtosComprados(new list<TProduto*>()),
-    produtosNaoConsumidos(new list<TProduto*>()),
+    produtosNaoConsumidos(new set<TProduto*>()),
     dividas(new map<TParticipante*, double>())
 {
 }
@@ -68,14 +68,14 @@ const list<TProduto*>& TParticipante::GetProdutosComprados() const
 
 /*--------------------------------------------------------------------------------*/
 
-const list<TProduto*>& TParticipante::GetNaoConsumidos() const
+const set<TProduto*>& TParticipante::GetNaoConsumidos() const
 {
     return *produtosNaoConsumidos;
 }
 
 /*--------------------------------------------------------------------------------*/
 
-list<TProduto*>* TParticipante::GetNaoConsumidos()
+set<TProduto*>* TParticipante::GetNaoConsumidos()
 {
     return produtosNaoConsumidos;
 }
@@ -132,7 +132,7 @@ void TParticipante::InsereNaoConsumido(
     TProduto* produto
 ) 
 {
-    produtosNaoConsumidos->push_back(produto);
+    produtosNaoConsumidos->insert(produto);
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -141,12 +141,7 @@ void TParticipante::RemoveNaoConsumido(
     TProduto* produtoARemover
 ) 
 {
-    auto filter = [produtoARemover](TProduto* produto)->bool {
-        return produto == produtoARemover;
-    };
-
-    auto it = remove_if(produtosNaoConsumidos->begin(), produtosNaoConsumidos->end(), filter);
-    produtosNaoConsumidos->erase(it);
+    produtosNaoConsumidos->erase(produtoARemover);
 }
 
 /*--------------------------------------------------------------------------------*/

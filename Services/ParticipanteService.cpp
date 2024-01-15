@@ -28,16 +28,13 @@ TParticipanteService::~TParticipanteService()
 
 /*--------------------------------------------------------------------------------*/
 
-list<TParticipante*>* TParticipanteService::CadastraParticipantes() {
-    size_t numParticipantes;
-    cout << "Insira o número de participantes: \n";
-    cin >> numParticipantes;
-    system("cls");
-
+list<TParticipante*>* TParticipanteService::CadastraParticipantes() 
+{
+    size_t numParticipantes = LeNumeroParticipantes();
     if (numParticipantes > 0) {
         auto participantes = new list<TParticipante*>();
         for (size_t i = 0; i < numParticipantes; i++) {
-            TParticipante* participante = &CriaParticipante(i, numParticipantes);
+            TParticipante* participante = CriaParticipante(i, numParticipantes);
             participantes->push_back(participante);
             idParticipante++;
             system("cls");
@@ -51,13 +48,25 @@ list<TParticipante*>* TParticipanteService::CadastraParticipantes() {
 
 /*--------------------------------------------------------------------------------*/
 
-TParticipante& TParticipanteService::CriaParticipante(
+size_t TParticipanteService::LeNumeroParticipantes() const
+{
+    size_t numParticipantes = 0;
+    cout << "Insira o número de participantes: \n";
+    cin >> numParticipantes;
+    system("cls");
+
+    return numParticipantes;
+}
+
+/*--------------------------------------------------------------------------------*/
+
+TParticipante* TParticipanteService::CriaParticipante(
     const size_t i,
     const size_t numParticipantes
 ) 
 {
-    string nome;
-    size_t nProdutosComprados;
+    string nome = "";
+    size_t nProdutosComprados = 0;
 
     cout << "Nome do participante (" << i + 1 << "/" << numParticipantes << ")" << "\n";
     cin >> nome;
@@ -69,7 +78,7 @@ TParticipante& TParticipanteService::CriaParticipante(
         prodService->CriaProdutosComprados(participante, nProdutosComprados);
     }
 
-    return *participante;
+    return participante;
 }
 
 /*--------------------------------------------------------------------------------*/

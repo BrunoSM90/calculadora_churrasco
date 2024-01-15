@@ -4,6 +4,7 @@
 #include <list>
 #include <map>
 #include <string>
+#include <set>
 
 #include "Produto.h"
 
@@ -43,9 +44,9 @@ public:
 
     const list<TProduto*>& GetProdutosComprados() const;
 
-    const list<TProduto*>& GetNaoConsumidos() const;
+    const set<TProduto*>& GetNaoConsumidos() const;
 
-    list<TProduto*>* GetNaoConsumidos();
+    set<TProduto*>* GetNaoConsumidos();
 
     const map<TParticipante*, double>& GetDividas() const;
 
@@ -78,7 +79,7 @@ private:
     int id = 0;
     string nome = "";
     list<TProduto*>* produtosComprados;
-    list<TProduto*>* produtosNaoConsumidos;
+    set<TProduto*>* produtosNaoConsumidos;
     map<TParticipante*, double>* dividas;
 };
 

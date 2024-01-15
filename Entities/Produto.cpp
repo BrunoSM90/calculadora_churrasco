@@ -29,6 +29,16 @@ bool TProduto::operator==(
 
 /*--------------------------------------------------------------------------------*/
 
+bool TProduto::operator<(
+    const TProduto& other
+    )
+{
+    return id < other.id;
+}
+
+
+/*--------------------------------------------------------------------------------*/
+
 void TProduto::SetNome(
     string _nome
 )

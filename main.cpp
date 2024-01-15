@@ -25,7 +25,6 @@ const list<TProduto*>& MontaListaProdutos(const list<TParticipante*>& participan
 int main(int argc, char** argv) {
 
     setlocale(LC_ALL, "Portuguese");
-    printf("Utilizando caracteres e acentuação da língua portuguesa!\n\n");
     
     const list<TParticipante*>* participantes = &CadastraParticipantes();
 

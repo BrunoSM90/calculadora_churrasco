@@ -42,20 +42,17 @@ namespace AuxDividas {
             }
         }
         
-        AuxDividas::ImprimeOpcoesAuxiliares(produtos.size(), participante);
+        ImprimeOpcoesAuxiliares(produtos.size(), participante);
     }
 
     void ImprimeProdutosNaoConsumidos(const size_t nProdutos, TParticipante* participante) {
         cout << "Produtos não consumidos por " << participante->GetNome() << ":\n";
-        list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
+        set<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
 
         if (naoConsumidos->size() == 0) {
             cout << "Lista vazia.\n";
         }
         else {
-            naoConsumidos->sort([](TProduto* p1, TProduto* p2) {
-                return p1->GetId() < p2->GetId(); });
-
             for (TProduto* produto : *naoConsumidos) {
                 cout << produto->GetId() << ". " << produto->GetNome() << "\n";
             }
@@ -64,8 +61,18 @@ namespace AuxDividas {
         }
     }
 
+    //Criar um ConsoleAux com métodos os estáticos abaixo.
     void LimpaTela() {
         system("cls");
+    };
+
+    void PulaLinhas() {
+        cout << "\n\n";
+    };
+
+    void ImprimeSeparador() {
+        cout << "\n" << "-------------------------------------------";
+        PulaLinhas();
     };
 }
 
@@ -95,7 +102,7 @@ void TDividaService::DiscriminaConsumo()
     for (TParticipante* participante : *participantes) {
         AuxDividas::LimpaTela();
 
-        size_t codProduto = 1;
+        size_t codProduto = 1; //do while?
         while (codProduto != 0) {
             ExibeListasProdutos(participante);
             ProcessaConsumoProdutos(participante, codProduto);
@@ -103,7 +110,7 @@ void TDividaService::DiscriminaConsumo()
         }
     }
 
-    cout << "\n" << "-------------------------------------------" << "\n\n";
+    AuxDividas::ImprimeSeparador();
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -113,10 +120,10 @@ void TDividaService::ExibeListasProdutos(
 ) const
 {
     AuxDividas::ImprimeProdutosConsumidos(*produtos, *participante);
-    cout << "\n" << "-------------------------------------------" << "\n\n";
+    AuxDividas::ImprimeSeparador();
 
     AuxDividas::ImprimeProdutosNaoConsumidos(produtos->size(), participante);
-    cout << "\n" << "-------------------------------------------" << "\n\n";
+    AuxDividas::ImprimeSeparador();
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -140,7 +147,10 @@ size_t TDividaService::LeCodigoProduto(
 {
     size_t codProduto;
     cout << "\nDigite o código de cada produto NÃO consumido por " <<
-        nomeParticipante << " (0 para finalizar.)" << "\n\n";
+        nomeParticipante << " (0 para finalizar.)";
+
+    AuxDividas::PulaLinhas();
+
     cout << "Codigo do produto: " << "\n";
     cin >> codProduto;
 
@@ -198,7 +208,7 @@ void TDividaService::InsereTodosEmNaoConsumidos(
     TParticipante* participante
 ) const
 {
-    list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
+    set<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
     for (TProduto* produto : *produtos) {
         auto it = std::find(naoConsumidos->begin(), naoConsumidos->end(), produto);
         if (it == naoConsumidos->end()) {
@@ -270,7 +280,7 @@ void TDividaService::ProcessaDividas(
 
 void TDividaService::ImprimeDividas() const
 {
-    system("cls");
+    AuxDividas::LimpaTela();
     for (TParticipante* participante : *participantes) {
         cout << participante->GetNome() << " paga: ";
         const map<TParticipante*, double>* dividas = &participante->GetDividas();
@@ -279,11 +289,12 @@ void TDividaService::ImprimeDividas() const
             for (const auto& data : *dividas) {
                 cout << "\nR$" << data.second << " para " << data.first->GetNome() << "\n";
             }
-            cout << "\n\n";
         }
         else {
-            cout << "R$0.00\n\n";
+            cout << "R$0.00";
         }
+
+        AuxDividas::PulaLinhas();
     }
 }
 

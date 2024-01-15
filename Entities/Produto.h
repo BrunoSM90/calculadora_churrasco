@@ -27,6 +27,10 @@ public:
         const TProduto& other
     );
 
+    virtual bool operator< (
+        const TProduto& other
+    );
+
     void SetNome(
         string _nome
     );

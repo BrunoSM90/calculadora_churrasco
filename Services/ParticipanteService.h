@@ -25,12 +25,15 @@ public:
 
     list<TParticipante*>* CadastraParticipantes();
 
-    TParticipante& CriaParticipante(
+    TParticipante* CriaParticipante(
         const size_t i,
         const size_t numParticipantes
     );
 
 private:
+
+    size_t LeNumeroParticipantes() const;
+
     TProdutoService* prodService;
 };
 
