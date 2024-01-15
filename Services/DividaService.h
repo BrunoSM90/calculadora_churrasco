@@ -24,9 +24,9 @@ public:
 
     ~TDividaService();
 
-    void DiscriminaConsumo();
+    void DiscriminaConsumo() const;
 
-    void CalculaDivida();
+    void CalculaDivida() const;
 
     void ImprimeDividas() const;
 
@@ -34,11 +34,11 @@ private:
 
     void ProcessaDividas(
         map<TProduto*, list<TParticipante*>>* dividas
-    );
+    ) const;
 
-    void TDividaService::ExibeListasProdutos(
+    void ExibeListasProdutos(
         TParticipante* participante
-    );
+    ) const;
 
     void ExibeNaoConsumidos(
         TParticipante* participante
@@ -47,20 +47,20 @@ private:
     void ProcessaConsumoProdutos(
         TParticipante* participante,
         size_t& codProduto
-    );
+    ) const;
 
-    size_t TDividaService::LeCodigoProduto(
-        string nomeParticipante
-    );
+    size_t LeCodigoProduto(
+        const string nomeParticipante
+    ) const;
 
     void ManipulaNaoConsumidos(
         TProduto* produto,
         TParticipante* participante
-    );
+    ) const;
 
     void InsereTodosEmNaoConsumidos(
         TParticipante* participante
-    );
+    ) const;
 
     void RemoveNaoConsumido(
         TProduto* produto,

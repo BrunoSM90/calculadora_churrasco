@@ -68,7 +68,7 @@ TDividaService::~TDividaService()
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::DiscriminaConsumo()
+void TDividaService::DiscriminaConsumo() const
 {
     for (TParticipante* participante : *participantes) {
         AuxDividas::LimpaTela();
@@ -88,7 +88,7 @@ void TDividaService::DiscriminaConsumo()
 
 void TDividaService::ExibeListasProdutos(
     TParticipante* participante
-)
+) const
 {
     AuxDividas::ImprimeProdutosConsumidos(*produtos, *participante);
     ExibeNaoConsumidos(participante);
@@ -99,7 +99,7 @@ void TDividaService::ExibeListasProdutos(
 void TDividaService::ProcessaConsumoProdutos(
     TParticipante* participante,
     size_t& codProduto
-)
+) const
 {
     codProduto = LeCodigoProduto(participante->GetNome());
 
@@ -115,8 +115,8 @@ void TDividaService::ProcessaConsumoProdutos(
 /*--------------------------------------------------------------------------------*/
 
 size_t TDividaService::LeCodigoProduto(
-    string nomeParticipante
-)
+    const string nomeParticipante
+) const
 {
     size_t codProduto;
     cout << "\nDigite o código de cada produto NÃO consumido por " <<
@@ -131,7 +131,7 @@ size_t TDividaService::LeCodigoProduto(
 
 void TDividaService::InsereTodosEmNaoConsumidos(
     TParticipante* participante
-)
+) const
 {
     list<TProduto*>* naoConsumidos = participante->GetNaoConsumidos();
     for (TProduto* produto : *produtos) {
@@ -147,7 +147,7 @@ void TDividaService::InsereTodosEmNaoConsumidos(
 void TDividaService::ManipulaNaoConsumidos(
     TProduto* produto,
     TParticipante* participante
-)
+) const
 {
     if (participante->Consome(produto)) {
         participante->InsereNaoConsumido(produto);
@@ -176,7 +176,7 @@ void TDividaService::RemoveNaoConsumido(
 
 /*--------------------------------------------------------------------------------*/
 
-void TDividaService::CalculaDivida()
+void TDividaService::CalculaDivida() const
 {
     auto dividas = new map<TProduto*, list<TParticipante*>>();
 
@@ -197,7 +197,7 @@ void TDividaService::CalculaDivida()
 
 void TDividaService::ProcessaDividas(
     map<TProduto*, list<TParticipante*>>* dividas
-)
+) const
 {
     for (auto it = dividas->begin(); it != dividas->end(); it++) {
         TProduto* produto = it->first;
