@@ -40,10 +40,6 @@ private:
         TParticipante* participante
     ) const;
 
-    void ExibeNaoConsumidos(
-        TParticipante* participante
-    ) const;
-
     void ProcessaConsumoProdutos(
         TParticipante* participante,
         size_t& codProduto
