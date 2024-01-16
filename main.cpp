@@ -42,10 +42,9 @@ int main(int argc, char** argv) {
 
 const list<TParticipante*>& CadastraParticipantes()
 {
-    unique_ptr<TParticipanteService> participanteService =
-        make_unique<TParticipanteService>(new TProdutoService());
+    TParticipanteService participanteService(new TProdutoService());
 
-    list<TParticipante*>* lista = participanteService->CadastraParticipantes();
+    list<TParticipante*>* lista = participanteService.CadastraParticipantes();
 
     return *lista;
 }
@@ -57,10 +56,10 @@ void CalculaDivida (
     const list<TProduto*>& produtos
 ) 
 {   
-    unique_ptr<TDividaService> dividaService = make_unique<TDividaService>(&participantes, &produtos);
-    dividaService->DiscriminaConsumo();
-    dividaService->CalculaDivida();
-    dividaService->ImprimeDividas();
+    TDividaService dividaService(&participantes, &produtos);
+    dividaService.DiscriminaConsumo();
+    dividaService.CalculaDivida();
+    dividaService.ImprimeDividas();
 }
 
 /*--------------------------------------------------------------------------------*/

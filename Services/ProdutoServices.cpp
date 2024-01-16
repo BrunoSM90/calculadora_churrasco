@@ -37,11 +37,12 @@ TProduto& TProdutoService::CriaProduto(
     string nomeProduto = "";
     double valorTotal = 0.0;
 
-    cout << "Nome do produto (" << index + 1 << "/" << nProdutosComprados << ")\n";
+    cout << "Nome do produto (" << index + 1 << "/" << nProdutosComprados << "): ";
     cin >> nomeProduto;
 
-    cout << "Valor total do produto " << index + 1 << "/" << nProdutosComprados << "\n";
+    cout << "Valor total do produto (" << index + 1 << "/" << nProdutosComprados << "): ";
     cin >> valorTotal;
+    cout << "\n\n";
 
     auto produto = new TProduto(idProduto, nomeProduto, valorTotal);
 

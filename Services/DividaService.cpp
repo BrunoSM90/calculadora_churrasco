@@ -1,5 +1,6 @@
 #include "DividaService.h"
 
+#include <iomanip>
 #include <iostream>
 #include <algorithm>
 
@@ -323,16 +324,17 @@ void TDividaService::ImprimeDividas() const
         cout << participante->GetNome() << " paga: ";
         const map<TParticipante*, double>* dividas = participante->GetDividas();
 
+        cout << std::setprecision(2) << std::fixed;
         if (dividas->size() != 0) {
-            for (const auto& data : *dividas) {
-                cout << "\nR$" << data.second << " para " << data.first->GetNome() << "\n";
+            for (const pair<TParticipante* const, double>& divida : *dividas) {
+                cout << "\nR$" << divida.second << " para " << divida.first->GetNome();
             }
         }
         else {
             cout << "R$0.00";
         }
 
-        AuxDividas::PulaLinhas();
+        AuxDividas::ImprimeSeparador();
     }
 }
 

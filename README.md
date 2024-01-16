@@ -10,13 +10,13 @@ TO-DO list:
 - Custom list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
 - cout -> printf / cin -> scanf
 - Dividir tela final em "recebe" e "paga" ou fazer um sort no ImprimeDividas() para apresentar primeiro quem paga e depois quem não paga nada
+- Implementar cálculo a partir da leitura de um CSV ou um .txt
 
 Próximo:
-- TRATAMENTO DE VALORES INVÁLIDOS (asserts?)
-- Fazer o map carregar objetos dinâmicos de pairs para buscar à partir do TParticipante.
+- Implementar um esquema de fazer cada pessoa fazer apenas um pagamento (TDividasService::OtimizaPagamento())
 
 Fazendo:
-- Refinar e testar mais o CruzaDividas() (fazer clone da lista para evitar os erase(it++)?? ou guardar as dívidas numa lista e dar erase depois do laço)
+- TRATAMENTO DE VALORES INVÁLIDOS nos cin
 
 Feitos:
 - VERIFICAR DESTRUTORES DAS ENTITIES (devo apagar algo?)
@@ -27,3 +27,7 @@ Feitos:
 - Verificar questão do locale para trocar cout por printf
 - TROCAR AS LISTAS DE PRODUTO POR SETS (feito só para a lista de nao consumidos para evitar o sort)
 - FAZER CRUZAMENTO ENTRE PARTICIPANTE X DEVE PARA Y E PARTICIPANTE Y DEVE PARA X
+
+Cancelados:
+- Fazer o map carregar objetos dinâmicos de pairs para buscar à partir do TParticipante.
+- Refinar e testar mais o CruzaDividas() (fazer clone da lista para evitar os erase(it++)?? ou guardar as dívidas numa lista e dar erase depois do laço)
