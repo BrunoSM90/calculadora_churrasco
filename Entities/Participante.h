@@ -50,6 +50,8 @@ public:
 
     const map<TParticipante*, double>& GetDividas() const;
 
+    map<TParticipante*, double>* GetDividas();
+
     bool Consome(
         TProduto* produto
     ) const;

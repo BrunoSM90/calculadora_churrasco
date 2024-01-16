@@ -72,6 +72,8 @@ private:
         TParticipante* participante
     ) const;
 
+    void CruzaDividas() const;
+
     const list<TParticipante*>* participantes;
     const list<TProduto*>* produtos;
 };

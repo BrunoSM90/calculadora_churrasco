@@ -89,6 +89,13 @@ const map<TParticipante*, double>& TParticipante::GetDividas() const
 
 /*--------------------------------------------------------------------------------*/
 
+map<TParticipante*, double>* TParticipante::GetDividas()
+{
+    return dividas;
+}
+
+/*--------------------------------------------------------------------------------*/
+
 bool TParticipante::Consome(
     TProduto* produto
 ) const

@@ -102,12 +102,13 @@ void TDividaService::DiscriminaConsumo()
     for (TParticipante* participante : *participantes) {
         AuxDividas::LimpaTela();
 
-        size_t codProduto = 1; //do while?
-        while (codProduto != 0) {
+        size_t codProduto;
+
+        do {
             ExibeListasProdutos(participante);
             ProcessaConsumoProdutos(participante, codProduto);
             AuxDividas::LimpaTela();
-        }
+        } while (codProduto != 0);
     }
 
     AuxDividas::ImprimeSeparador();
@@ -250,6 +251,7 @@ void TDividaService::CalculaDivida() const
     }
 
     ProcessaDividas(dividas);
+    CruzaDividas();
 }
 
 /*--------------------------------------------------------------------------------*/
@@ -278,12 +280,48 @@ void TDividaService::ProcessaDividas(
 
 /*--------------------------------------------------------------------------------*/
 
+void TDividaService::CruzaDividas() const
+{
+    for (TParticipante* participante : *participantes) {
+        map<TParticipante*, double>* dividas = participante->GetDividas();
+        auto it = dividas->begin();
+        while (it != dividas->end()) {
+            auto divida = it;
+            TParticipante* participanteAlvo = divida->first;
+            map<TParticipante*, double>* dividasAlvo = participanteAlvo->GetDividas();
+            auto dividaAlvo = dividasAlvo->find(participante);
+
+            if (dividaAlvo != dividasAlvo->end()) {
+                const double valorDescontado = divida->second - dividaAlvo->second;
+                if (valorDescontado > 0.0) {
+                    dividasAlvo->erase(dividaAlvo);
+                    divida->second = valorDescontado;
+                    it++;
+                }
+                else if (valorDescontado < 0.0) {
+                    dividas->erase(it++);
+                    dividaAlvo->second = valorDescontado * -1;
+                }
+                else {
+                    dividas->erase(it++);
+                    dividasAlvo->erase(dividaAlvo);
+                }
+            }
+            else {
+                it++;
+            }
+        }
+    }
+}
+
+/*--------------------------------------------------------------------------------*/
+
 void TDividaService::ImprimeDividas() const
 {
     AuxDividas::LimpaTela();
     for (TParticipante* participante : *participantes) {
         cout << participante->GetNome() << " paga: ";
-        const map<TParticipante*, double>* dividas = &participante->GetDividas();
+        const map<TParticipante*, double>* dividas = participante->GetDividas();
 
         if (dividas->size() != 0) {
             for (const auto& data : *dividas) {
