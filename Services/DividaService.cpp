@@ -1,8 +1,9 @@
 #include "DividaService.h"
 
+#include <algorithm>
+#include <InputValidator.h>
 #include <iomanip>
 #include <iostream>
-#include <algorithm>
 
 #include <Participante.h>
 
@@ -155,6 +156,8 @@ size_t TDividaService::LeCodigoProduto(
 
     cout << "Codigo do produto: " << "\n";
     cin >> codProduto;
+    NumberValidator validator(cin);
+    validator.ValidaInteger(codProduto);
 
     return codProduto;
 }

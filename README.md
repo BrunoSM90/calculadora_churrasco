@@ -14,6 +14,7 @@ TO-DO list:
 
 Próximo:
 - Implementar um esquema de fazer cada pessoa fazer apenas um pagamento (TDividasService::OtimizaPagamento())
+- Tirar using namespaces dos .h
 
 Fazendo:
 - TRATAMENTO DE VALORES INVÁLIDOS nos cin

@@ -1,6 +1,8 @@
 #include "ParticipanteService.h"
 
+#include <InputValidator.h>
 #include <iostream>
+
 #include "Participante.h"
 
 /*--------------------------------------------------------------------------------*/
@@ -53,6 +55,9 @@ size_t TParticipanteService::LeNumeroParticipantes() const
     size_t numParticipantes = 0;
     cout << "Insira o número de participantes: \n";
     cin >> numParticipantes;
+    NumberValidator validator(cin);
+    validator.ValidaInteger(numParticipantes);
+
     system("cls");
 
     return numParticipantes;
@@ -72,6 +77,8 @@ TParticipante* TParticipanteService::CriaParticipante(
     cin >> nome;
     cout << "Quantos produtos " << nome << " comprou?\n";
     cin >> nProdutosComprados;
+    NumberValidator validator(cin);
+    validator.ValidaInteger(nProdutosComprados);
 
     auto participante = new TParticipante(idParticipante, nome);
     if (nProdutosComprados > 0) {

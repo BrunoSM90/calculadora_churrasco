@@ -6,10 +6,12 @@ set(SOURCES main.cpp)
 
 add_subdirectory(Entities)
 add_subdirectory(Services)
+add_subdirectory(Utilities)
 
 add_executable(${PROJECT_NAME} ${SOURCES})
 
-target_link_libraries(Main Entities Services)
+target_link_libraries(Main Entities Services Utilities)
+
 
 #IGNORE
 

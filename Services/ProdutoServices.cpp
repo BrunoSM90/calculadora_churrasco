@@ -1,5 +1,6 @@
 #include "ProdutoServices.h"
 
+#include <InputValidator.h>
 #include <iostream>
 
 #include "Produto.h"
@@ -42,6 +43,9 @@ TProduto& TProdutoService::CriaProduto(
 
     cout << "Valor total do produto (" << index + 1 << "/" << nProdutosComprados << "): ";
     cin >> valorTotal;
+    NumberValidator validator(cin);
+    validator.ValidaFloat(valorTotal);
+
     cout << "\n\n";
 
     auto produto = new TProduto(idProduto, nomeProduto, valorTotal);
