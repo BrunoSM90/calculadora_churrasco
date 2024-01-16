@@ -7,8 +7,6 @@
 
 /*--------------------------------------------------------------------------------*/
 
-using namespace std;
-
 class TParticipante;
 class TProduto;
 
@@ -18,8 +16,8 @@ class TDividaService {
 
 public:
     TDividaService(
-        const list<TParticipante*>* _participantes,
-        const list<TProduto*>* _produtos
+        const std::list<TParticipante*>* _participantes,
+        const std::list<TProduto*>* _produtos
     );
 
     ~TDividaService();
@@ -33,7 +31,7 @@ public:
 private:
 
     void ProcessaDividas(
-        map<TProduto*, list<TParticipante*>>* dividas
+        std::map<TProduto*, std::list<TParticipante*>>* dividas
     ) const;
 
     void ExibeListasProdutos(
@@ -46,7 +44,7 @@ private:
     );
 
     size_t LeCodigoProduto(
-        const string nomeParticipante
+        const std::string& nomeParticipante
     ) const;
 
     void ProcessaCodigoProduto(
@@ -74,8 +72,8 @@ private:
 
     void CruzaDividas() const;
 
-    const list<TParticipante*>* participantes;
-    const list<TProduto*>* produtos;
+    const std::list<TParticipante*>* participantes;
+    const std::list<TProduto*>* produtos;
 };
 
 #endif

@@ -145,7 +145,7 @@ void TDividaService::ProcessaConsumoProdutos(
 /*--------------------------------------------------------------------------------*/
 
 size_t TDividaService::LeCodigoProduto(
-    const string nomeParticipante
+    const string& nomeParticipante
 ) const
 {
     size_t codProduto;

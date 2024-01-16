@@ -3,8 +3,6 @@
 
 #include <list>
 
-using namespace std;
-
 /*--------------------------------------------------------------------------------*/
 
 class TParticipante;
@@ -29,15 +27,13 @@ public:
         const size_t index
     );
 
-    list<TProduto*>& TodosProdutos(
-        const list<TParticipante*>* participantes
+    std::list<TProduto*>& TodosProdutos(
+        const std::list<TParticipante*>* participantes
     );
 
     void ImprimeProdutos(
-        const list<TProduto*>& produtos
+        const std::list<TProduto*>& produtos
     );
-
-private:
 };
 
 #endif

@@ -48,7 +48,7 @@ void TProduto::SetNome(
 
 /*--------------------------------------------------------------------------------*/
 
-string TProduto::GetNome() const
+const string& TProduto::GetNome() const
 {
     return nome;
 }

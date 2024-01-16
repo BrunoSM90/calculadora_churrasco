@@ -8,8 +8,6 @@
 
 /*--------------------------------------------------------------------------------*/
 
-using namespace std;
-
 class TParticipante;
 
 /*--------------------------------------------------------------------------------*/
@@ -23,7 +21,7 @@ public:
 
     ~TParticipanteService();
 
-    list<TParticipante*>* CadastraParticipantes();
+    std::list<TParticipante*>* CadastraParticipantes();
 
     TParticipante* CriaParticipante(
         const size_t i,

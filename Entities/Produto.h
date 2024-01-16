@@ -5,7 +5,6 @@
 
 /*--------------------------------------------------------------------------------*/
 
-using namespace std;
 class TParticipante;
 
 /*--------------------------------------------------------------------------------*/
@@ -17,7 +16,7 @@ public:
 
     TProduto(
         const int _id,
-        const string _nome,
+        const std::string _nome,
         const double _valorTotal
     );
 
@@ -32,10 +31,10 @@ public:
     );
 
     void SetNome(
-        string _nome
+        std::string _nome
     );
 
-    string GetNome() const;
+    const std::string& GetNome() const;
 
     void SetId(
         int _id
@@ -58,7 +57,7 @@ public:
 private:
     int id;
     TParticipante* comprador;
-    string nome; //trocar para char* talvez
+    std::string nome;
     double valorTotal;
 };
 

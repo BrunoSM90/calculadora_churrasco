@@ -54,7 +54,7 @@ void TParticipante::SetNome(
 
 /*--------------------------------------------------------------------------------*/
 
-string TParticipante::GetNome() const
+const string& TParticipante::GetNome() const
 {
     return nome;
 }
