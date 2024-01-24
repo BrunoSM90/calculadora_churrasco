@@ -6,15 +6,16 @@ TO-DO list:
 - BD no SQLITE para armazenar participantes + GERAR QR CODE (pesquisar).
 - VERIFICAÇÃO DE LEAKS
 - RELATÓRIO ESCRITO EM FILE
-- Custom list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
-- Implementar cálculo a partir da leitura de um CSV ou um .txt
+- Custom linked list<T*> e ter uns métodos tipo hasMember, elementAt(), etc
+- Dividir tela final em "recebe" e "paga" ou fazer um sort no ImprimeDividas() para apresentar primeiro quem paga e depois quem não paga nada
+- RELATÓRIO NO CONSOLE (Opcional pro usuário)
 - Implementar um esquema de fazer cada pessoa fazer apenas um pagamento (TDividasService::OtimizaPagamento())
 
 Próximo:
-- Dividir tela final em "recebe" e "paga" ou fazer um sort no ImprimeDividas() para apresentar primeiro quem paga e depois quem não paga nada
 
 Fazendo:
-- RELATÓRIO NO CONSOLE (Opcional pro usuário)
+- Implementar leitura de CSV para testes
+- Implementar cálculo a partir da leitura de um CSV
 
 Feitos:
 - VERIFICAR DESTRUTORES DAS ENTITIES (devo apagar algo?)
